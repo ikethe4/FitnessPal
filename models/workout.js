@@ -40,6 +40,7 @@ const WorkoutSchema = new Schema({
     }
   }]
 
+//i'm going to log out and back in and see if that fixes my audio
 });
 
 const Workout = mongoose.model("workout", WorkoutSchema);

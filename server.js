@@ -10,6 +10,7 @@ const app = express();
 
 app.use(logger("dev"));
 
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -24,6 +25,7 @@ mongoose.connect(
     useFindAndModify: false
   }
 );
+
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"))
@@ -59,11 +61,10 @@ app.get("/api/workouts/range", (req, res) => {
 })
 
 //put route to add exercises to a previous workout plan (continue workout button)
-app.put("/api/workouts/:id"), (req, res) => {
-  const id = req.params.id
+app.put("/api/workouts/:id", (req, res) => {
   db.Workout.findByIdAndUpdate(
-    params.id,
-    {$push: {exercises: body}},
+    req.params.id,
+    {$push: {exercises: req.body}},
     {new: true, runValidators: true}
   ).then(data =>{
         res.json(data);
@@ -71,7 +72,7 @@ app.put("/api/workouts/:id"), (req, res) => {
       .catch(err=> {
         res.json(err)
       })
-}
+});
 
 //post route to add workout to workout plan (new workout button)
 
